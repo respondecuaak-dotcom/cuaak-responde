@@ -107,7 +107,7 @@ begin
   if (select count(*) from situaciones where huella = p_huella and creada > now() - interval '1 hour') >= 5 then
     raise exception 'Ya enviaste varios reportes; intenta en un rato';
   end if;
-  if (select count(*) from situaciones where creada > now() - interval '10 minutes') >= 60 then
+  if (select count(*) from situaciones where creada > now() - interval '10 minutes') >= 200 then
     raise exception 'Hay muchos reportes en este momento; intenta en unos minutos';
   end if;
   insert into situaciones (categoria, lugar, descripcion, foto_path, foto_estado, huella)

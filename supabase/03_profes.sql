@@ -89,7 +89,7 @@ begin
   if (select count(*) from resenas where huella = p_huella and creada > now() - interval '1 day') >= 8 then
     raise exception 'Llegaste al límite de reseñas por hoy';
   end if;
-  if (select count(*) from resenas where creada > now() - interval '10 minutes') >= 80 then
+  if (select count(*) from resenas where creada > now() - interval '10 minutes') >= 500 then
     raise exception 'Hay muchas reseñas en este momento; intenta en unos minutos';
   end if;
   insert into resenas (profe, materia_clave, ciclo, calidad, dificultad, volveria, etiquetas, comentario, huella)
