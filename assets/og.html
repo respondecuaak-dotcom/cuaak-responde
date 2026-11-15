@@ -3,8 +3,10 @@
 <head>
 <meta charset="utf-8">
 <title>Imagen para compartir</title>
-<!-- Fuente de og.png (1200x630). Para regenerarla:
-     msedge --headless --hide-scrollbars --window-size=1200,630 --screenshot=og.png assets/og.html -->
+<!-- Fuente de og.jpg, og-profes.jpg y og-campus.jpg (1200x630).
+     Variante con ?v=general | ?v=profes | ?v=campus. Para regenerar: captura con
+     msedge --headless --hide-scrollbars --window-size=1200,630 --screenshot=og-profes.png "assets/og.html?v=profes"
+     y conviértela a JPG (calidad ~88) para que pese < 300 KB (WhatsApp). -->
 <style>
 @font-face { font-family: "Alte Haas Grotesk"; font-weight: 400;
   src: url("https://fonts.cdnfonts.com/s/8581/AlteHaasGroteskRegular.woff") format("woff"); }
@@ -17,47 +19,96 @@ body {
   font-family: "Alte Haas Grotesk", "Helvetica Neue", Arial, sans-serif; letter-spacing: -.01em;
   -webkit-font-smoothing: antialiased;
 }
+/* grano + luz suave para darle profundidad */
+body::before {
+  content: ""; position: absolute; inset: 0;
+  background: radial-gradient(900px 520px at 18% 28%, rgba(255,255,255,.06), transparent 60%),
+              radial-gradient(700px 500px at 95% 100%, rgba(0,0,0,.30), transparent 60%);
+}
 body::after {
-  content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .12; mix-blend-mode: screen;
+  content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .14; mix-blend-mode: screen;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .35 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
-.eyebrow { position: absolute; top: 40px; left: 0; right: 0; text-align: center; font-size: 26px; }
-.titulo { position: absolute; left: 64px; top: 104px; line-height: .86; letter-spacing: -.05em; }
+.eyebrow { position: absolute; top: 38px; left: 0; right: 0; text-align: center; font-size: 26px; }
+.titulo { position: absolute; left: 64px; top: 100px; line-height: .86; letter-spacing: -.05em; white-space: nowrap; }
 .t1 { display: block; font-size: 104px; font-weight: 400; }
-.t2 { display: block; font-size: 150px; font-weight: 700; }
+.t2 { display: block; font-size: var(--t2, 150px); font-weight: 700; }
 
-/* carpeta */
-.folder { position: absolute; right: 70px; bottom: 64px; width: 330px; height: 230px; }
+.folder { position: absolute; right: 64px; bottom: 60px; width: 360px; height: 236px; }
 .folder .back { position: absolute; inset: 0; background: #D9D9D9; border-radius: 26px; }
-.folder .tab { position: absolute; top: -22px; right: 26px; width: 130px; height: 50px; background: #D9D9D9; border-radius: 18px 18px 0 0; }
-.folder .front { position: absolute; left: 0; right: 0; bottom: 0; height: 200px; background: #F1F1F1; border-radius: 26px; box-shadow: 0 20px 40px rgba(0,0,0,.35); }
+.folder .tab { position: absolute; top: -22px; right: 28px; width: 140px; height: 50px; background: #D9D9D9; border-radius: 18px 18px 0 0; }
+.folder .front { position: absolute; left: 0; right: 0; bottom: 0; height: 206px; background: #F1F1F1; border-radius: 26px; box-shadow: 0 22px 44px rgba(0,0,0,.38); }
 
 .pill {
-  position: absolute; background: #fff; color: #111; border-radius: 999px; padding: 12px 28px;
-  font-size: 30px; letter-spacing: -.03em; box-shadow: 0 10px 24px rgba(0,0,0,.30);
-  white-space: nowrap;
+  position: absolute; background: #fff; color: #111; border-radius: 999px; padding: 11px 26px;
+  font-size: 27px; letter-spacing: -.03em; box-shadow: 0 10px 24px rgba(0,0,0,.30); white-space: nowrap;
 }
-.p1 { right: 30px; bottom: 236px; }
-.p2 { right: 300px; bottom: 138px; font-size: 26px; padding: 10px 22px; }
-.p3 { right: 330px; bottom: 80px; font-size: 26px; padding: 10px 22px; }
-.p4 { right: 110px; bottom: 118px; font-size: 26px; padding: 10px 22px; background: #550000; color: #fff; transform: rotate(-3deg); }
+.pill.g { background: #550000; color: #fff; }
+.pill.ok { background: #12804B; color: #fff; }
+.pill.b { font-weight: 700; }
 
-.meta { position: absolute; left: 64px; bottom: 112px; font-size: 26px; opacity: .92; }
-.firma { position: absolute; left: 0; right: 0; bottom: 34px; text-align: center; font-size: 36px; letter-spacing: -.05em; }
+.meta { position: absolute; left: 64px; bottom: 100px; font-size: 25px; opacity: .92; }
+.secciones { position: absolute; left: 64px; bottom: 44px; display: flex; gap: 10px; }
+.secciones span { font-size: 20px; padding: 6px 16px; border-radius: 999px; box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.55); }
+.secciones span.on { background: #fff; color: #111; box-shadow: none; font-weight: 700; }
+.firma { position: absolute; right: 64px; top: 34px; font-size: 30px; letter-spacing: -.05em; }
 .firma b { font-weight: 700; }
 </style>
 </head>
 <body>
   <p class="eyebrow">Huentitán</p>
-  <h1 class="titulo"><span class="t1">¡CUAAK</span><span class="t2">RESPONDE!</span></h1>
-
-  <div class="folder"><div class="tab"></div><div class="back"></div><div class="front"></div></div>
-  <span class="pill p1">Arma tu horario!</span>
-  <span class="pill p2">IB532</span>
-  <span class="pill p3">Lun 07:00</span>
-  <span class="pill p4">Sin empalmes</span>
-
-  <p class="meta">Planificador de horarios ›</p>
   <p class="firma"><b>cuaak</b>responde</p>
+  <h1 class="titulo"><span class="t1" id="t1"></span><span class="t2" id="t2"></span></h1>
+  <div class="folder"><div class="tab"></div><div class="back"></div><div class="front"></div></div>
+  <div id="pills"></div>
+  <p class="meta" id="meta"></p>
+  <div class="secciones" id="secs"></div>
+
+<script>
+  const V = {
+    general: {
+      t1: "¡CUAAK", t2: "RESPONDE!", size: "150px", on: null,
+      meta: "Hecho por y para la comunidad ›",
+      pills: [
+        ["Arma tu horario!", "right:34px; bottom:236px;", ""],
+        ["Opina de tus profes", "right:250px; bottom:150px; font-size:24px; padding:9px 20px;", ""],
+        ["Reporta tu campus", "right:96px; bottom:96px; font-size:24px; padding:9px 20px; transform:rotate(-3deg);", "g"],
+      ],
+    },
+    profes: {
+      t1: "¡OPINA DE", t2: "TUS PROFES!", size: "128px", on: "Profes",
+      meta: "Reseñas anónimas de alumnos ›",
+      pills: [
+        ["★ 4.6", "right:44px; bottom:238px; font-size:32px;", "ok b"],
+        ["Explica bien", "right:250px; bottom:158px; font-size:24px; padding:9px 20px;", ""],
+        ["Califica justo", "right:70px; bottom:150px; font-size:24px; padding:9px 20px;", ""],
+        ["Es anónimo", "right:150px; bottom:84px; font-size:24px; padding:9px 20px; transform:rotate(-3deg);", "g"],
+      ],
+    },
+    campus: {
+      t1: "¡REPORTA", t2: "TU CAMPUS!", size: "132px", on: "Campus",
+      meta: "Lo llevamos en oficio hasta que se solucione ›",
+      pills: [
+        ["¿Algo no funciona?", "right:30px; bottom:238px;", ""],
+        ["Baños", "right:300px; bottom:160px; font-size:24px; padding:9px 20px;", ""],
+        ["Material", "right:170px; bottom:160px; font-size:24px; padding:9px 20px;", ""],
+        ["✓ Solucionado", "right:120px; bottom:90px; font-size:24px; padding:9px 20px; transform:rotate(-3deg);", "ok"],
+      ],
+    },
+  };
+  const v = V[new URLSearchParams(location.search).get("v")] || V.general;
+  document.getElementById("t1").textContent = v.t1;
+  document.getElementById("t2").textContent = v.t2;
+  document.body.style.setProperty("--t2", v.size);
+  document.getElementById("meta").textContent = v.meta;
+  for (const [txt, css, cls] of v.pills) {
+    const p = document.createElement("span"); p.className = "pill " + cls; p.style.cssText = css; p.textContent = txt;
+    document.getElementById("pills").append(p);
+  }
+  for (const s of ["Horario", "Profes", "Campus"]) {
+    const e = document.createElement("span"); e.textContent = s; if (s === v.on) e.className = "on";
+    document.getElementById("secs").append(e);
+  }
+</script>
 </body>
 </html>
