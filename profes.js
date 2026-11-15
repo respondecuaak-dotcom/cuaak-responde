@@ -234,7 +234,7 @@
     if (!calidad) return toast("Califica la calidad (de 1 a 5 estrellas).", true);
     if (!dificultad) return toast("Indica la dificultad (1 a 5).", true);
     if (volveria == null) return toast("¿Lo volverías a tomar? Elige Sí o No.", true);
-    if (comentario.length < 20) return toast("Escribe un poco más (mínimo 20 letras).", true);
+    if (comentario.length < 10) return toast("Escribe un poco más (mínimo 10 letras).", true);
 
     const btn = form.querySelector('button[type="submit"]');
     btn.disabled = true; btn.textContent = "Publicando…";

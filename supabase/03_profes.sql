@@ -15,7 +15,7 @@ create table if not exists public.resenas (
   etiquetas      text[]   not null default '{}' check (cardinality(etiquetas) <= 3 and etiquetas <@ array[
                    'explica_bien','dinamica','retroalimentacion','accesible','justo','flexible','criterios_claros',
                    'inspira','mucha_tarea','muchos_proyectos','examenes_dificiles','exigente','asistencia','impuntual']),
-  comentario     text not null check (char_length(comentario) between 20 and 1500),
+  comentario     text not null check (char_length(comentario) between 10 and 1500),
   oculta         boolean not null default false,
   huella         text,
   creada         timestamptz not null default now()
