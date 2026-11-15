@@ -5,29 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CUAAK RESPONDE</title>
 <meta name="description" content="Planificador de horarios hecho por y para la comunidad del CUAAD Huentitán. Proyecto estudiantil no oficial.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.cdnfonts.com" crossorigin>
+<link rel="preload" href="https://fonts.cdnfonts.com/s/8581/AlteHaasGroteskBold.woff" as="font" type="font/woff" crossorigin>
 <link rel="stylesheet" href="styles.css">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23141414'/%3E%3Cpath d='M12 50a20 20 0 0 1 20-20h4v20z' fill='%23FF5A1F'/%3E%3Ccircle cx='40' cy='22' r='10' fill='%23FF5A1F'/%3E%3Cpath d='M50 20l9 4-9 4z' fill='%23F4F1EA'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23FF507E'/%3E%3Ctext x='32' y='45' font-family='Helvetica,Arial,sans-serif' font-size='38' font-weight='900' fill='%23fff' text-anchor='middle'%3EC!%3C/text%3E%3C/svg%3E">
 </head>
 <body>
 
-<header class="top">
-  <a class="brand" href="#" aria-label="CUAAK RESPONDE, inicio">
-    <svg class="duck" viewBox="0 0 64 64" aria-hidden="true">
-      <path d="M6 54a24 24 0 0 1 24-24h8v24z" class="duck-body"/>
-      <circle cx="40" cy="22" r="11" class="duck-head"/>
-      <circle cx="43" cy="19" r="2.2" class="duck-eye"/>
-      <path d="M51 19l11 5-11 5z" class="duck-beak"/>
-    </svg>
-    <span class="wordmark"><b>CUAAK</b><i>RESPONDE</i></span>
-  </a>
-  <p class="tag">Arma tu horario sin empalmes. Hecho por y para la comunidad de Huentitán.</p>
-  <div class="top-meta" id="meta">Cargando oferta…</div>
+<header class="hero">
+  <p class="eyebrow">Huentitán</p>
+  <h1 class="titulo"><span class="t1">¡CUAAK</span><span class="t2">RESPONDE!</span></h1>
+  <div class="hero-pills" aria-hidden="true">
+    <span class="pill-flota p-a">Arma tu horario!</span>
+    <span class="pill-flota p-b">Sin empalmes</span>
+  </div>
+  <a class="hero-meta" href="#app"><span id="meta">Cargando oferta…</span><span class="chev" aria-hidden="true">›</span></a>
 </header>
 
-<main class="layout">
+<main class="layout" id="app">
   <!-- ============ BUSCADOR ============ -->
   <section class="panel buscar" aria-label="Buscar materias">
     <div class="panel-head">
@@ -108,7 +103,8 @@
 
 <footer class="pie">
   <p><b>Proyecto estudiantil no oficial.</b> Los datos vienen de la consulta pública de oferta del SIIAU y pueden cambiar: confirma siempre en SIIAU antes de registrar.</p>
-  <label class="btn sm ghost cargar">Cargar otro JSON<input type="file" id="archivo" accept=".json,application/json" hidden></label>
+  <label class="btn sm cargar">Cargar otro JSON<input type="file" id="archivo" accept=".json,application/json" hidden></label>
+  <p class="firma"><b>cuaak</b>responde</p>
 </footer>
 
 <div id="toast" class="toast" role="status" hidden></div>

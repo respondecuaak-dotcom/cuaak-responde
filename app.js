@@ -88,8 +88,8 @@
 
     llenarSelects();
     const fecha = d.generado ? new Date(d.generado).toLocaleString("es-MX", { dateStyle: "medium", timeStyle: "short" }) : "—";
-    $("#meta").innerHTML = "";
-    $("#meta").append(`Ciclo ${d.ciclo} · ${d.secciones.length.toLocaleString("es-MX")} NRC`, el("br"), `Datos SIIAU: ${fecha}`);
+    $("#meta").textContent = `Ciclo ${d.ciclo} · ${d.secciones.length.toLocaleString("es-MX")} NRC · Datos SIIAU del ${fecha}`;
+    if (d.sede) $(".eyebrow").textContent = d.sede;
     renderTodo();
   }
 
