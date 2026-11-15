@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Cartel QR · Reporta tu campus</title>
+<!-- Fuente del cartel (A4). Para regenerar el PDF:
+     msedge --headless --no-pdf-header-footer --print-to-pdf=cartel-qr.pdf assets/cartel.html -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+@font-face { font-family: "Alte Haas Grotesk"; font-weight: 400;
+  src: url("https://fonts.cdnfonts.com/s/8581/AlteHaasGroteskRegular.woff") format("woff"); }
+@font-face { font-family: "Alte Haas Grotesk"; font-weight: 700;
+  src: url("https://fonts.cdnfonts.com/s/8581/AlteHaasGroteskBold.woff") format("woff"); }
+@page { size: A4; margin: 0; }
+* { box-sizing: border-box; margin: 0; }
+html, body { width: 210mm; height: 297mm; }
+body {
+  background: #550000; color: #fff; position: relative; overflow: hidden;
+  font-family: "Alte Haas Grotesk", "Helvetica Neue", Arial, sans-serif;
+  -webkit-print-color-adjust: exact; print-color-adjust: exact;
+}
+.eyebrow { position: absolute; top: 14mm; left: 0; right: 0; text-align: center; font-size: 7mm; }
+.titulo { position: absolute; left: 14mm; top: 34mm; line-height: .86; letter-spacing: -.05em; }
+.t1 { display: block; font-size: 25mm; font-weight: 400; }
+.t2 { display: block; font-size: 30mm; font-weight: 700; }
+
+.folder { position: absolute; left: 50%; transform: translateX(-50%); top: 112mm; width: 150mm; height: 132mm; }
+.folder .tab { position: absolute; top: -9mm; right: 12mm; width: 52mm; height: 20mm; background: #D9D9D9; border-radius: 7mm 7mm 0 0; }
+.folder .back { position: absolute; inset: 0; background: #D9D9D9; border-radius: 10mm; }
+.folder .front { position: absolute; left: 0; right: 0; bottom: 0; top: 10mm; background: #F1F1F1; border-radius: 10mm; box-shadow: 0 6mm 14mm rgba(0,0,0,.35); }
+.qr { position: absolute; left: 50%; top: 21mm; transform: translateX(-50%); background: #fff; padding: 6mm; border-radius: 6mm; }
+.qr canvas, .qr img { display: block; width: 80mm !important; height: 80mm !important; }
+.escanea { position: absolute; left: 0; right: 0; bottom: 9mm; text-align: center; color: #111; font-size: 7.5mm; font-weight: 700; letter-spacing: -.03em; }
+
+.pill {
+  position: absolute; background: #fff; color: #111; border-radius: 999px; padding: 3mm 7mm;
+  font-size: 6mm; letter-spacing: -.03em; box-shadow: 0 2.5mm 6mm rgba(0,0,0,.3); white-space: nowrap;
+}
+.p1 { right: 10mm; top: 104mm; font-size: 7mm; }
+.p2 { left: 8mm; top: 168mm; }
+.p3 { left: 12mm; top: 186mm; }
+.p4 { right: 8mm; top: 200mm; background: #550000; color: #fff; transform: rotate(-3deg); }
+
+.pasos { position: absolute; left: 14mm; right: 14mm; top: 252mm; text-align: center; font-size: 5.2mm; line-height: 1.35; }
+.firma { position: absolute; left: 0; right: 0; bottom: 9mm; text-align: center; font-size: 9mm; letter-spacing: -.05em; }
+.firma b { font-weight: 700; }
+</style>
+</head>
+<body>
+  <p class="eyebrow">Huentitán</p>
+  <h1 class="titulo"><span class="t1">¡REPORTA</span><span class="t2">TU CAMPUS!</span></h1>
+
+  <div class="folder">
+    <div class="tab"></div><div class="back"></div><div class="front"></div>
+    <div class="qr" id="qr"></div>
+    <p class="escanea">Escanea y reporta</p>
+  </div>
+  <span class="pill p1">¿Algo no funciona?</span>
+  <span class="pill p2">Baños</span>
+  <span class="pill p3">Material</span>
+  <span class="pill p4">Es anónimo</span>
+
+  <p class="pasos">Lo juntamos, lo llevamos en oficio y publicamos el avance<br>de cada caso hasta que se solucione.</p>
+  <p class="firma"><b>cuaak</b>responde</p>
+
+<script>
+  new QRCode(document.getElementById("qr"), {
+    text: "https://respondecuaak-dotcom.github.io/cuaak-responde/campus.html#reportar",
+    width: 1000, height: 1000, colorDark: "#000000", colorLight: "#ffffff",
+    correctLevel: QRCode.CorrectLevel.M,
+  });
+</script>
+</body>
+</html>

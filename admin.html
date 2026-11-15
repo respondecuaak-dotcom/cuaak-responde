@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Panel · CUAAK RESPONDE</title>
+<meta name="theme-color" content="#550000">
+<link rel="preconnect" href="https://fonts.cdnfonts.com" crossorigin>
+<link rel="stylesheet" href="styles.css?v=4">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23550000'/%3E%3Ctext x='32' y='45' font-family='Helvetica,Arial,sans-serif' font-size='38' font-weight='900' fill='%23fff' text-anchor='middle'%3EC!%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+<nav class="menu" aria-label="Secciones">
+  <a href="./">Horario</a>
+  <a href="campus.html">Campus</a>
+  <a href="admin.html" aria-current="page">Panel</a>
+</nav>
+
+<div class="admin-wrap">
+  <!-- ============ LOGIN ============ -->
+  <section class="panel login" id="login" hidden>
+    <div class="panel-head"><h2><span class="num">🔒</span> Panel del equipo</h2></div>
+    <form id="f-login" class="filtros">
+      <label class="campo ancho"><span>Correo</span><input id="l-correo" type="email" autocomplete="username" required></label>
+      <label class="campo ancho"><span>Contraseña</span><input id="l-pass" type="password" autocomplete="current-password" required></label>
+      <button class="btn add full ancho" type="submit" id="l-btn">Entrar</button>
+    </form>
+  </section>
+
+  <!-- ============ PANEL ============ -->
+  <section class="panel" id="panel" hidden>
+    <div class="panel-head">
+      <h2><span class="num">⚙</span> Reportes del campus</h2>
+      <div class="adm-barra derecha"><span id="quien"></span><button class="btn sm ghost" id="salir" type="button">Salir</button></div>
+    </div>
+    <div class="estados" id="a-filtros" role="group" aria-label="Filtrar"></div>
+    <label class="campo buscar-t"><input id="a-q" type="search" placeholder="Buscar por lugar, problema o #número…" aria-label="Buscar"></label>
+    <div id="a-casos" class="casos"></div>
+  </section>
+</div>
+
+<div id="toast" class="toast" role="status" hidden></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js"></script>
+<script src="config.js?v=4"></script>
+<script src="comun.js?v=4"></script>
+<script src="admin.js?v=4"></script>
+</body>
+</html>

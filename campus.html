@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Campus · CUAAK RESPONDE</title>
+<meta name="description" content="Reporta lo que no funciona en el CUAAD Huentitán y sigue cada caso hasta que se solucione. Anónimo.">
+<meta name="theme-color" content="#550000">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_MX">
+<meta property="og:site_name" content="CUAAK RESPONDE">
+<meta property="og:title" content="¡Reporta tu campus! · CUAAK RESPONDE">
+<meta property="og:description" content="¿Algo no funciona en Huentitán? Repórtalo en anónimo y sigue el caso hasta que se solucione.">
+<meta property="og:url" content="https://respondecuaak-dotcom.github.io/cuaak-responde/campus.html">
+<meta property="og:image" content="https://respondecuaak-dotcom.github.io/cuaak-responde/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.cdnfonts.com" crossorigin>
+<link rel="preload" href="https://fonts.cdnfonts.com/s/8581/AlteHaasGroteskBold.woff" as="font" type="font/woff" crossorigin>
+<link rel="stylesheet" href="styles.css?v=4">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23550000'/%3E%3Ctext x='32' y='45' font-family='Helvetica,Arial,sans-serif' font-size='38' font-weight='900' fill='%23fff' text-anchor='middle'%3EC!%3C/text%3E%3C/svg%3E">
+</head>
+<body class="pag-campus">
+
+<nav class="menu" aria-label="Secciones">
+  <a href="./">Horario</a>
+  <a href="campus.html" aria-current="page">Campus</a>
+  <span class="pronto" title="Muy pronto">Profes <small>pronto</small></span>
+</nav>
+
+<header class="hero">
+  <p class="eyebrow">Huentitán</p>
+  <h1 class="titulo"><span class="t1">¡REPORTA</span><span class="t2">TU CAMPUS!</span></h1>
+  <div class="hero-pills" aria-hidden="true">
+    <span class="pill-flota p-a">¿Algo no funciona?</span>
+    <span class="pill-flota p-b">Es anónimo</span>
+  </div>
+  <a class="hero-meta" href="#tablero"><span id="meta">Cargando reportes…</span><span class="chev" aria-hidden="true">›</span></a>
+</header>
+
+<main class="layout campus" id="app">
+  <!-- ============ FORMULARIO ============ -->
+  <section class="panel reportar" id="reportar" aria-label="Hacer un reporte">
+    <div class="panel-head"><h2><span class="num">01</span> Reporta</h2></div>
+
+    <form id="form" class="filtros" novalidate>
+      <label class="campo ancho">
+        <span>¿Qué tipo de problema?</span>
+        <select id="r-cat" required><option value="">Elige una categoría</option></select>
+      </label>
+      <label class="campo ancho">
+        <span>¿Dónde?</span>
+        <input id="r-lugar" type="text" maxlength="120" required autocomplete="off"
+               placeholder="Ej. Edificio B, aula 204 · baños de planta baja">
+      </label>
+      <div id="parecidos" class="parecidos ancho" hidden></div>
+      <label class="campo ancho">
+        <span>¿Qué pasa?</span>
+        <textarea id="r-desc" rows="4" maxlength="1000" required
+                  placeholder="Describe el problema. Ej. el lavabo de la derecha no tiene agua desde hace una semana."></textarea>
+        <small class="contador"><span id="r-cuenta">0</span>/1000</small>
+      </label>
+
+      <div class="campo ancho">
+        <span>Foto (opcional)</span>
+        <label class="foto-drop" id="foto-drop">
+          <input id="r-foto" type="file" accept="image/*" hidden>
+          <img id="foto-prev" alt="" hidden>
+          <span id="foto-txt">+ Agregar foto</span>
+        </label>
+        <button type="button" class="link" id="foto-quitar" hidden>Quitar foto</button>
+        <small class="aviso-foto">Se publica solo cuando el equipo la revisa. Evita que salgan personas o caras.</small>
+      </div>
+
+      <div class="reglas ancho">
+        <b>Antes de enviar</b>
+        <ul>
+          <li>Es anónimo: no se guarda tu nombre, correo ni cuenta.</li>
+          <li>Solo cosas del campus: instalaciones, material, servicios.</li>
+          <li>No escribas nombres de personas ni insultos.</li>
+          <li><b>No es para emergencias.</b> Si hay peligro, llama al 911.</li>
+        </ul>
+      </div>
+
+      <button class="btn add full ancho" id="enviar" type="submit">Enviar reporte</button>
+    </form>
+  </section>
+
+  <!-- ============ TABLERO ============ -->
+  <section class="panel tablero" id="tablero" aria-label="Tablero de reportes">
+    <div class="panel-head">
+      <h2><span class="num">02</span> Tablero</h2>
+      <select id="t-orden" class="orden" aria-label="Ordenar">
+        <option value="recientes">Más recientes</option>
+        <option value="afectados">Más afectados</option>
+      </select>
+    </div>
+    <div class="estados" id="t-estados" role="group" aria-label="Filtrar por estado"></div>
+    <label class="campo buscar-t">
+      <input id="t-q" type="search" placeholder="Buscar por lugar o problema…" autocomplete="off" aria-label="Buscar reportes">
+    </label>
+    <div id="casos" class="casos" aria-live="polite"></div>
+    <button id="t-mas" class="btn ghost full" type="button" hidden>Ver más</button>
+  </section>
+</main>
+
+<footer class="pie">
+  <p><b>Proyecto estudiantil no oficial.</b> Juntamos los reportes, los llevamos en oficio a quien corresponde y publicamos el avance de cada caso.</p>
+  <p class="firma"><b>cuaak</b>responde</p>
+</footer>
+
+<div id="toast" class="toast" role="status" hidden></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js"></script>
+<script src="config.js?v=4"></script>
+<script src="comun.js?v=4"></script>
+<script src="campus.js?v=4"></script>
+</body>
+</html>
