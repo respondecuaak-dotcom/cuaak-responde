@@ -10,7 +10,7 @@
        url("https://fonts.cdnfonts.com/s/8581/AlteHaasGroteskBold.woff") format("woff");
 }
 :root {
-  --bg: #FF507E;            /* rosa del póster */
+  --bg: #550000;            /* granate */
   --on-bg: #FFFFFF;
   --on-bg-soft: rgba(255, 255, 255, .86);
   --folder: #F1F1F1;        /* hoja frontal de la carpeta */
@@ -21,7 +21,7 @@
   --line: #E0E0E0;
   --pill: #FFFFFF;
   --pill-ink: #111111;
-  --accent: #FF507E;
+  --accent: #550000;
   --accent-ink: #FFFFFF;
   --ok: #138A4F;
   --bad: #E0182D;
