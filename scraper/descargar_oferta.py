@@ -261,7 +261,44 @@ def main():
         (DATA / nombre).write_text(json.dumps(publicada, ensure_ascii=False, indent=1), encoding="utf-8")
         print(f"Sede {sede['sede']}: {len(publicada['secciones'])} de {len(secciones)} NRC -> {nombre}")
     (DATA / "oferta.js").write_text("window.OFERTA = " + json.dumps(publicada, ensure_ascii=False) + ";\n", encoding="utf-8")
+    profes = lista_profes(publicada)
+    salida_profes = {"ciclo": publicada["ciclo"], "carreras": publicada["carreras"], "lista": profes}
+    (DATA / "profes.js").write_text("window.PROFES = " + json.dumps(salida_profes, ensure_ascii=False, separators=(",", ":")) + ";\n", encoding="utf-8")
+    print(f"{len(profes)} profesores -> data/profes.js")
     print(f"Listo. {cli.peticiones} peticiones nuevas al SIIAU. La pagina carga data/oferta.js")
+
+
+def slug_profe(nombre):
+    """'GONZALEZ JUAREZ, JOSE ANTONIO' -> 'gonzalez-juarez-jose-antonio' (igual que slugProfe en JS)."""
+    import unicodedata
+    s = unicodedata.normalize("NFD", nombre)
+    s = "".join(c for c in s if not unicodedata.combining(c)).lower()
+    return re.sub(r"[^a-z0-9]+", "-", s).strip("-")
+
+
+MINUSCULAS = {"de", "del", "la", "las", "los", "y", "e", "van", "von", "da", "di"}
+
+
+def nombre_legible(nombre):
+    """'GONZALEZ JUAREZ, JOSE ANTONIO' -> 'Jose Antonio Gonzalez Juarez'."""
+    ap, _, nom = nombre.partition(",")
+    partes = (nom.strip() + " " + ap.strip()).split()
+    return " ".join(p.lower() if p.lower() in MINUSCULAS and i else p.capitalize() for i, p in enumerate(partes))
+
+
+def lista_profes(d):
+    """Profesores que dan clase en la sede, con las materias y carreras de este ciclo."""
+    profes = {}
+    for s in d["secciones"]:
+        for p in s["profesores"]:
+            if not p["nombre"] or "," not in p["nombre"]:
+                continue
+            k = slug_profe(p["nombre"])
+            reg = profes.setdefault(k, {"s": k, "n": nombre_legible(p["nombre"]), "m": {}, "c": set()})
+            reg["m"][s["clave"]] = s["materia"]
+            reg["c"].update(s["carreras"])
+    return sorted(({"s": r["s"], "n": r["n"], "m": sorted(r["m"].items(), key=lambda x: x[1]), "c": sorted(r["c"])}
+                   for r in profes.values()), key=lambda r: r["n"])
 
 
 def norm_archivo(s):

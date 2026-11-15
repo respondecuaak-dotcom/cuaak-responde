@@ -69,7 +69,8 @@
         const ini = aMin(x.inicio), fin = aMin(x.fin) + 1; // SIIAU usa 0700-0855: fin inclusivo
         for (const dia of x.dias) s.bloques.push({ dia, ini, fin, edificio: x.edificio, aula: x.aula, periodo: parsePeriodo(x.periodo) });
       }
-      s.prof = [...new Set((s.profesores || []).map((p) => p.nombre).filter(Boolean))].join(" · ");
+      s.profs = [...new Set((s.profesores || []).map((p) => p.nombre).filter(Boolean))];
+      s.prof = s.profs.join(" · ");
       s.texto = norm(`${s.materia} ${s.clave} ${s.nrc} ${s.prof}`);
       s.edificios = new Set(s.sesiones.map((x) => x.edificio).filter(Boolean));
       s.aulas = new Set(s.sesiones.map((x) => `${x.edificio}|${x.aula}`).filter((a) => a !== "|"));
@@ -217,7 +218,7 @@
         el("span", { class: "pill" }, s.seccion),
         el("span", { class: "pill " + (lugares > 0 ? "hay" : "lleno") }, `${lugares}/${s.cupos ?? 0} lugares`)),
       ...lineasSesion(s),
-      s.prof ? el("div", { class: "prof" }, s.prof) : null,
+      s.profs.length ? el("div", { class: "prof" }, s.profs.flatMap((n, i) => [i ? " · " : "", n, notaProfe(n)])) : null,
       choca.length ? el("div", { class: "empalme" }, `⚠ Se empalma con ${choca.map((x) => x.materia).join(", ")}`) : null,
       el("button", {
         class: "btn sm sec-btn " + (agregada ? "quitar" : "add"), type: "button",
@@ -447,8 +448,32 @@
     $("#imprimir").addEventListener("click", () => window.print());
   }
 
+  /* ---------------- calificaciones de Profes ---------------- */
+  let NOTAS = {};
+  const slugProfe = (n) => (n || "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+  function notaProfe(nombre) {
+    const s = slugProfe(nombre), r = NOTAS[s];
+    const href = `profes.html#p=${s}`;
+    if (!r) return el("a", { class: "prof-nota sin", href, target: "_blank", rel: "noopener", title: "Ver o escribir reseñas" }, "opinar");
+    const v = Number(r.calidad);
+    return el("a", { class: `prof-nota ${v >= 4 ? "alto" : v >= 3 ? "medio" : "bajo"}`, href, target: "_blank", rel: "noopener",
+      title: `${r.n} ${r.n === 1 ? "reseña" : "reseñas"} · ver en Profes` }, `★ ${v.toFixed(1)} (${r.n})`);
+  }
+  async function cargarNotas() {
+    const c = window.CUAAK_CONFIG;
+    if (!c) return;
+    try {
+      const r = await fetch(`${c.url}/rest/v1/profes_resumen?select=profe,n,calidad`, { headers: { apikey: c.key } });
+      if (!r.ok) return;
+      NOTAS = Object.fromEntries((await r.json()).map((x) => [x.profe, x]));
+      if (DATA) renderTodo(false);
+    } catch { /* sin conexión: el horario funciona igual */ }
+  }
+
   conectar();
   renderTodo();
+  cargarNotas();
   if (window.OFERTA && Array.isArray(window.OFERTA.secciones)) cargar(window.OFERTA);
   else {
     $("#meta").textContent = "Sin datos";

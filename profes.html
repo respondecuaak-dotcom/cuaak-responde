@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Profes · CUAAK RESPONDE</title>
+<meta name="description" content="Opiniones anónimas sobre los profes del CUAAD Huentitán, hechas por alumnos para alumnos.">
+<meta name="theme-color" content="#550000">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_MX">
+<meta property="og:site_name" content="CUAAK RESPONDE">
+<meta property="og:title" content="¡Opina de tus profes! · CUAAK RESPONDE">
+<meta property="og:description" content="Reseñas anónimas de los profes de Huentitán: calificación, dificultad y lo que opinan tus compañeros.">
+<meta property="og:url" content="https://respondecuaak-dotcom.github.io/cuaak-responde/profes.html">
+<meta property="og:image" content="https://respondecuaak-dotcom.github.io/cuaak-responde/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.cdnfonts.com" crossorigin>
+<link rel="preload" href="https://fonts.cdnfonts.com/s/8581/AlteHaasGroteskBold.woff" as="font" type="font/woff" crossorigin>
+<link rel="stylesheet" href="styles.css?v=5">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23550000'/%3E%3Ctext x='32' y='45' font-family='Helvetica,Arial,sans-serif' font-size='38' font-weight='900' fill='%23fff' text-anchor='middle'%3EC!%3C/text%3E%3C/svg%3E">
+</head>
+<body class="pag-profes">
+
+<nav class="menu" aria-label="Secciones">
+  <a href="./">Horario</a>
+  <a href="profes.html" aria-current="page">Profes</a>
+  <a href="campus.html">Campus</a>
+</nav>
+
+<header class="hero">
+  <p class="eyebrow">Huentitán</p>
+  <h1 class="titulo"><span class="t1">¡OPINA DE</span><span class="t2">TUS PROFES!</span></h1>
+  <div class="hero-pills" aria-hidden="true">
+    <span class="pill-flota p-a">Ayuda a tus compañeros</span>
+    <span class="pill-flota p-b">Es anónimo</span>
+  </div>
+  <a class="hero-meta" href="#app"><span id="meta">Cargando profes…</span><span class="chev" aria-hidden="true">›</span></a>
+</header>
+
+<main class="layout profes" id="app">
+  <!-- ============ LISTA ============ -->
+  <section class="panel lista-profes" aria-label="Buscar profe">
+    <div class="panel-head"><h2><span class="num">01</span> Busca tu profe</h2></div>
+    <div class="filtros">
+      <label class="campo ancho">
+        <span>Nombre o materia</span>
+        <input id="p-q" type="search" placeholder="Ej. García, taller de diseño…" autocomplete="off">
+      </label>
+      <label class="campo">
+        <span>Carrera</span>
+        <select id="p-carrera"><option value="">Todas</option></select>
+      </label>
+      <label class="campo">
+        <span>Ordenar</span>
+        <select id="p-orden">
+          <option value="nombre">Nombre</option>
+          <option value="mejor">Mejor calificados</option>
+          <option value="resenas">Más reseñas</option>
+        </select>
+      </label>
+    </div>
+    <div class="resultados-head"><span id="p-conteo">—</span></div>
+    <div id="p-lista" class="resultados" role="list"></div>
+    <button id="p-mas" class="btn ghost full" type="button" hidden>Ver más</button>
+  </section>
+
+  <!-- ============ PERFIL ============ -->
+  <section class="panel perfil" id="perfil" aria-label="Perfil del profe" tabindex="-1">
+    <div id="perfil-cont">
+      <div class="vacio grande">
+        <b>Elige un profe</b>
+        Busca a la izquierda para ver sus reseñas o escribir la tuya.
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="pie">
+  <p><b>Proyecto estudiantil no oficial.</b> Las reseñas son opiniones anónimas de alumnos sobre cómo se da la clase. Si algo no respeta las reglas, repórtalo y se oculta de inmediato.</p>
+  <p class="firma"><b>cuaak</b>responde</p>
+</footer>
+
+<div id="toast" class="toast" role="status" hidden></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js"></script>
+<script src="config.js?v=5"></script>
+<script src="comun.js?v=5"></script>
+<script src="data/profes.js?v=5"></script>
+<script src="profes.js?v=5"></script>
+</body>
+</html>

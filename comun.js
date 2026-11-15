@@ -23,6 +23,26 @@
     solucionado: "Solucionado",
   };
 
+  const ETIQUETAS = {
+    explica_bien: "Explica bien",
+    dinamica: "Clases dinámicas",
+    retroalimentacion: "Da buena retroalimentación",
+    accesible: "Accesible fuera de clase",
+    justo: "Califica justo",
+    flexible: "Flexible con entregas",
+    criterios_claros: "Criterios claros",
+    inspira: "Inspira",
+    mucha_tarea: "Mucha tarea",
+    muchos_proyectos: "Muchos proyectos",
+    examenes_dificiles: "Exámenes difíciles",
+    exigente: "Muy exigente",
+    asistencia: "Exige asistencia",
+    impuntual: "Llega tarde o falta",
+  };
+  const CICLOS = [["2027A", "2027 A"], ["2026B", "2026 B"], ["2026A", "2026 A"], ["2025B", "2025 B"], ["2025A", "2025 A"], ["antes", "Antes"]];
+  const slugProfe = (n) => (n || "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+
   const $ = (s, r = document) => r.querySelector(s);
   const el = (tag, attrs = {}, ...kids) => {
     const n = document.createElement(tag);
@@ -98,5 +118,5 @@
     return m || "Algo salió mal. Intenta de nuevo.";
   };
 
-  window.CK = { cfg, sb, CATEGORIAS, ESTADOS, $, el, ls, uuid, huella, toast, publico, hace, prepararFoto, mensajeError };
+  window.CK = { cfg, sb, CATEGORIAS, ESTADOS, ETIQUETAS, CICLOS, slugProfe, $, el, ls, uuid, huella, toast, publico, hace, prepararFoto, mensajeError };
 })();

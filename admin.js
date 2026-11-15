@@ -30,10 +30,96 @@
   $("#salir").addEventListener("click", async () => { await sb.auth.signOut(); location.reload(); });
 
   async function mostrarPanel(sesion) {
-    $("#login").hidden = true; $("#panel").hidden = false;
+    $("#login").hidden = true; $("#panel").hidden = false; $("#tabs").hidden = false;
     $("#quien").textContent = sesion.user.email;
-    await cargar();
+    await Promise.all([cargar(), cargarResenas()]);
   }
+
+  function pestana(cual) {
+    $("#tab-campus").setAttribute("aria-selected", String(cual === "campus"));
+    $("#tab-resenas").setAttribute("aria-selected", String(cual === "resenas"));
+    $("#panel").hidden = cual !== "campus";
+    $("#panel-resenas").hidden = cual !== "resenas";
+  }
+  $("#tab-campus").addEventListener("click", () => pestana("campus"));
+  $("#tab-resenas").addEventListener("click", () => pestana("resenas"));
+
+  /* ================= RESEÑAS ================= */
+  const { ETIQUETAS, CICLOS } = window.CK;
+  const NOMBRES = Object.fromEntries(((window.PROFES && window.PROFES.lista) || []).map((p) => [p.s, p.n]));
+  let resenas = [], rAbusos = {}, rFiltro = "revisar", rq = "";
+  const R_FILTROS = {
+    revisar: ["Por revisar", (r) => r.oculta],
+    visibles: ["Visibles", (r) => !r.oculta],
+    todas: ["Todas", () => true],
+  };
+
+  async function cargarResenas() {
+    const [r, a] = await Promise.all([
+      sb.from("resenas").select("*").order("creada", { ascending: false }).limit(5000),
+      sb.from("resena_abusos").select("resena_id").limit(50000),
+    ]);
+    if (r.error) { $("#r-lista").replaceChildren(el("div", { class: "vacio" }, el("b", {}, "No se pudieron cargar"), mensajeError(r.error))); return; }
+    resenas = r.data; rAbusos = {};
+    for (const x of a.data || []) rAbusos[x.resena_id] = (rAbusos[x.resena_id] || 0) + 1;
+    renderResenas();
+  }
+
+  function renderResenas() {
+    const pend = resenas.filter((r) => r.oculta).length;
+    $("#tab-resenas").textContent = pend ? `Reseñas · ${pend} por revisar` : "Reseñas";
+    $("#r-filtros").replaceChildren(...Object.entries(R_FILTROS).map(([k, [n, f]]) =>
+      el("button", { class: `chip est-${k === "revisar" ? "todos" : k}`, type: "button", "aria-pressed": String(rFiltro === k),
+        onclick: () => { rFiltro = k; renderResenas(); } }, `${n} · ${resenas.filter(f).length}`)));
+    const pal = norm(rq).split(/\s+/).filter(Boolean);
+    const l = resenas.filter(R_FILTROS[rFiltro][1]).filter((r) =>
+      pal.every((p) => p.startsWith("#") ? String(r.id) === p.slice(1) : norm(`${NOMBRES[r.profe] || r.profe} ${r.comentario}`).includes(p)));
+    $("#r-lista").replaceChildren(...(l.length ? l.map(tarjetaResena)
+      : [el("div", { class: "vacio" }, el("b", {}, rFiltro === "revisar" ? "Todo al día ✓" : "Nada aquí"),
+          rFiltro === "revisar" ? "No hay reseñas reportadas." : "")]));
+  }
+
+  function tarjetaResena(r) {
+    const ciclo = CICLOS.find((c) => c[0] === r.ciclo)?.[1];
+    return el("article", { class: "caso adm-caso" + (r.oculta ? " oculta" : "") },
+      el("div", { class: "caso-top" },
+        el("span", { class: `nota-chica ${r.calidad >= 4 ? "alto" : r.calidad >= 3 ? "medio" : "bajo"}` }, `★ ${r.calidad}`),
+        el("span", { class: "pill" }, `Dificultad ${r.dificultad}/5`),
+        r.oculta ? el("span", { class: "marca" }, "OCULTA") : null,
+        rAbusos[r.id] ? el("span", { class: "marca" }, `${rAbusos[r.id]} reporte(s)`) : null,
+        el("span", { class: "caso-id" }, `#${r.id} · ${hace(r.creada)}`)),
+      el("h3", { class: "caso-lugar" }, NOMBRES[r.profe] || r.profe),
+      el("p", { class: "resena-ciclo" }, [r.materia_clave, ciclo, `Lo volvería a tomar: ${r.volveria ? "Sí" : "No"}`].filter(Boolean).join(" · ")),
+      r.etiquetas.length ? el("div", { class: "resena-etiquetas" }, r.etiquetas.map((e) => el("span", { class: "pill" }, ETIQUETAS[e] || e))) : null,
+      el("p", { class: "caso-desc" }, r.comentario),
+      el("div", { class: "adm-acciones" },
+        el("button", { class: "btn sm" + (r.oculta ? " add" : ""), type: "button", onclick: () => visibilidadResena(r) },
+          r.oculta ? "Regresar (mostrar)" : "Ocultar"),
+        el("button", { class: "btn sm ghost danger", type: "button", onclick: () => borrarResena(r) }, "Borrar definitivamente")));
+  }
+
+  async function visibilidadResena(r) {
+    if (r.oculta) {
+      await sb.from("resena_abusos").delete().eq("resena_id", r.id);
+      delete rAbusos[r.id];
+    }
+    const { error } = await sb.from("resenas").update({ oculta: !r.oculta }).eq("id", r.id);
+    if (error) return toast(mensajeError(error), true);
+    r.oculta = !r.oculta;
+    toast(r.oculta ? "Reseña oculta" : "Reseña visible de nuevo");
+    renderResenas();
+  }
+
+  async function borrarResena(r) {
+    if (!confirm(`¿Borrar definitivamente la reseña #${r.id}? No se puede deshacer.`)) return;
+    const { error } = await sb.from("resenas").delete().eq("id", r.id);
+    if (error) return toast(mensajeError(error), true);
+    resenas = resenas.filter((x) => x.id !== r.id);
+    toast(`Reseña #${r.id} borrada`);
+    renderResenas();
+  }
+  let rqt;
+  $("#r-q").addEventListener("input", (e) => { clearTimeout(rqt); rqt = setTimeout(() => { rq = e.target.value; renderResenas(); }, 150); });
 
   /* ---------------- datos ---------------- */
   async function cargar() {
