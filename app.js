@@ -445,16 +445,6 @@
       catch { prompt("Copia tus NRC:", txt); }
     });
     $("#imprimir").addEventListener("click", () => window.print());
-    $("#archivo").addEventListener("change", async (e) => {
-      const f = e.target.files[0];
-      if (!f) return;
-      try {
-        const d = JSON.parse(await f.text());
-        if (!Array.isArray(d.secciones)) throw new Error("formato");
-        cargar(d); toast(`Cargado ${f.name}`);
-      } catch { toast("Ese archivo no parece una oferta de CUAAK RESPONDE", true); }
-      e.target.value = "";
-    });
   }
 
   conectar();
@@ -462,7 +452,7 @@
   if (window.OFERTA && Array.isArray(window.OFERTA.secciones)) cargar(window.OFERTA);
   else {
     $("#meta").textContent = "Sin datos";
-    $("#resultados").append(el("div", { class: "vacio" }, el("b", {}, "No encontré data/oferta.js"),
-      "Corre el script de descarga o usa “Cargar otro JSON” abajo."));
+    $("#resultados").append(el("div", { class: "vacio" }, el("b", {}, "No se pudo cargar la oferta"),
+      "Recarga la página en un momento."));
   }
 })();

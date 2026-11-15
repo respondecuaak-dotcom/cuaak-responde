@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Imagen para compartir</title>
+<!-- Fuente de og.png (1200x630). Para regenerarla:
+     msedge --headless --hide-scrollbars --window-size=1200,630 --screenshot=og.png assets/og.html -->
+<style>
+@font-face { font-family: "Alte Haas Grotesk"; font-weight: 400;
+  src: url("https://fonts.cdnfonts.com/s/8581/AlteHaasGroteskRegular.woff") format("woff"); }
+@font-face { font-family: "Alte Haas Grotesk"; font-weight: 700;
+  src: url("https://fonts.cdnfonts.com/s/8581/AlteHaasGroteskBold.woff") format("woff"); }
+* { box-sizing: border-box; margin: 0; }
+html, body { width: 1200px; height: 630px; overflow: hidden; }
+body {
+  background: #550000; color: #fff; position: relative;
+  font-family: "Alte Haas Grotesk", "Helvetica Neue", Arial, sans-serif; letter-spacing: -.01em;
+  -webkit-font-smoothing: antialiased;
+}
+body::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .12; mix-blend-mode: screen;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .35 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.eyebrow { position: absolute; top: 40px; left: 0; right: 0; text-align: center; font-size: 26px; }
+.titulo { position: absolute; left: 64px; top: 104px; line-height: .86; letter-spacing: -.05em; }
+.t1 { display: block; font-size: 104px; font-weight: 400; }
+.t2 { display: block; font-size: 150px; font-weight: 700; }
+
+/* carpeta */
+.folder { position: absolute; right: 70px; bottom: 64px; width: 330px; height: 230px; }
+.folder .back { position: absolute; inset: 0; background: #D9D9D9; border-radius: 26px; }
+.folder .tab { position: absolute; top: -22px; right: 26px; width: 130px; height: 50px; background: #D9D9D9; border-radius: 18px 18px 0 0; }
+.folder .front { position: absolute; left: 0; right: 0; bottom: 0; height: 200px; background: #F1F1F1; border-radius: 26px; box-shadow: 0 20px 40px rgba(0,0,0,.35); }
+
+.pill {
+  position: absolute; background: #fff; color: #111; border-radius: 999px; padding: 12px 28px;
+  font-size: 30px; letter-spacing: -.03em; box-shadow: 0 10px 24px rgba(0,0,0,.30);
+  white-space: nowrap;
+}
+.p1 { right: 30px; bottom: 236px; }
+.p2 { right: 300px; bottom: 138px; font-size: 26px; padding: 10px 22px; }
+.p3 { right: 330px; bottom: 80px; font-size: 26px; padding: 10px 22px; }
+.p4 { right: 110px; bottom: 118px; font-size: 26px; padding: 10px 22px; background: #550000; color: #fff; transform: rotate(-3deg); }
+
+.meta { position: absolute; left: 64px; bottom: 112px; font-size: 26px; opacity: .92; }
+.firma { position: absolute; left: 0; right: 0; bottom: 34px; text-align: center; font-size: 36px; letter-spacing: -.05em; }
+.firma b { font-weight: 700; }
+</style>
+</head>
+<body>
+  <p class="eyebrow">Huentitán</p>
+  <h1 class="titulo"><span class="t1">¡CUAAK</span><span class="t2">RESPONDE!</span></h1>
+
+  <div class="folder"><div class="tab"></div><div class="back"></div><div class="front"></div></div>
+  <span class="pill p1">Arma tu horario!</span>
+  <span class="pill p2">IB532</span>
+  <span class="pill p3">Lun 07:00</span>
+  <span class="pill p4">Sin empalmes</span>
+
+  <p class="meta">Planificador de horarios ›</p>
+  <p class="firma"><b>cuaak</b>responde</p>
+</body>
+</html>
