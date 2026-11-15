@@ -23,7 +23,13 @@ cd scraper
 python descargar_oferta.py --sin-cache
 ```
 
-Genera `data/oferta_cuaad_<ciclo>.json`, `data/oferta.js` y `data/reporte_sedes.txt`. El script hace pausas entre peticiones para no saturar el servidor; por favor no las reduzcas.
+Genera:
+
+- `data/oferta_cuaad_<ciclo>.json`: toda la oferta del centro.
+- `data/oferta_huentitan_<ciclo>.json` y `data/oferta.js`: solo las licenciaturas de Huentitán (lo que carga la página).
+- `data/reporte_sedes.txt`: carreras y edificios detectados.
+
+Las carreras incluidas están en `scraper/sede_huentitan.json`; edítalo y vuelve a correr el script para cambiarlas (reutiliza la caché, no vuelve a consultar). El script hace pausas entre peticiones para no saturar el servidor; por favor no las reduzcas.
 
 ## Estructura
 

@@ -1,0 +1,24 @@
+{
+  "_nota": "Carreras (licenciaturas) de la sede Huentitan del CUAAD. Clave SIIAU -> nombre legible. Los planes viejos comparten nombre con el plan vigente. Para agregar o quitar una carrera, edita esta lista y vuelve a correr descargar_oferta.py (usa la cache, no vuelve a consultar el SIIAU).",
+  "sede": "Huentitán",
+  "edificios": ["AHUEN", "APOSGR", "ATALLE", "ATECNO"],
+  "carreras": {
+    "LIAR": "Arquitectura",
+    "LARQ": "Arquitectura",
+    "ARQ":  "Arquitectura",
+    "LDCG": "Diseño para la Comunicación Gráfica",
+    "DCG":  "Diseño para la Comunicación Gráfica",
+    "LDII": "Diseño Industrial",
+    "DIN":  "Diseño Industrial",
+    "LDIA": "Diseño de Interiores y Ambientación",
+    "LAID": "Diseño de Interiores y Ambientación",
+    "DIA":  "Diseño de Interiores y Ambientación",
+    "DIAM": "Diseño de Interiores y Ambientación",
+    "LDAT": "Diseño, Arte y Tecnologías",
+    "LAMU": "Urbanística y Medio Ambiente",
+    "LUMA": "Urbanística y Medio Ambiente",
+    "UMA":  "Urbanística y Medio Ambiente",
+    "DMOD": "Diseño de Modas",
+    "DIMO": "Diseño de Modas"
+  }
+}

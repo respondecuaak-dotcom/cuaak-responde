@@ -99,7 +99,7 @@
     const cuenta = {};
     for (const s of DATA.secciones) for (const c of s.carreras || []) cuenta[c] = (cuenta[c] || 0) + 1;
     Object.entries(DATA.carreras || {})
-      .sort((a, b) => a[1].localeCompare(b[1], "es"))
+      .sort((a, b) => a[1].localeCompare(b[1], "es") || (cuenta[b[0]] || 0) - (cuenta[a[0]] || 0))
       .forEach(([k, v]) => sc.append(el("option", { value: k }, `${v} (${k}) · ${cuenta[k] || 0}`)));
     sc.value = st.carrera;
     llenarEdificios();

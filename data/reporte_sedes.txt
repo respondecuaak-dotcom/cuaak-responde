@@ -1,4 +1,4 @@
-CUAAK RESPONDE - reporte de sedes  (ciclo 202710, 3064 NRC, generado 2026-11-14T18:26:16)
+CUAAK RESPONDE - reporte de sedes  (ciclo 202710, 3064 NRC, generado 2026-11-14T18:20:16)
 
 EDIFICIOS (NRC que usan ese edificio · nº de aulas distintas)
   (sin edificio)    2262 NRC     0 aulas

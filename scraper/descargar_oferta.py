@@ -13,9 +13,11 @@ Que hace:
   2. Descarga la lista de carreras del centro y consulta la oferta de cada una
      para saber a que carrera(s) pertenece cada NRC (el listado general del
      SIIAU no trae la carrera).
-  3. Guarda ../data/oferta_cuaad_<ciclo>.json y ../data/oferta.js (mismo
-     contenido, para que la pagina funcione abriendo el HTML sin servidor).
-  4. Escribe ../data/reporte_sedes.txt con carreras y edificios detectados.
+  3. Guarda ../data/oferta_cuaad_<ciclo>.json (todo el centro) y
+     ../data/reporte_sedes.txt con carreras y edificios detectados.
+  4. Filtra con sede_huentitan.json (solo licenciaturas de Huentitan) y guarda
+     ../data/oferta_huentitan_<ciclo>.json y ../data/oferta.js (lo que carga
+     la pagina; .js para que funcione abriendo el HTML sin servidor).
 
 Se hacen pausas entre peticiones para no saturar el servidor de la UdeG.
 """
@@ -54,6 +56,7 @@ class Cliente:
         self.usar_cache = usar_cache
         self._ultima = 0.0
         self.peticiones = 0
+        self.mas_antigua = time.time()   # fecha del dato mas viejo usado (cache o descarga)
         CACHE.mkdir(parents=True, exist_ok=True)
 
     def _esperar(self):
@@ -67,6 +70,7 @@ class Cliente:
         clave = hashlib.sha1((url + "|" + (cuerpo or b"").decode(ENCODING)).encode("utf-8")).hexdigest()[:16]
         archivo = CACHE / f"{clave}.html"
         if self.usar_cache and archivo.exists():
+            self.mas_antigua = min(self.mas_antigua, archivo.stat().st_mtime)
             return archivo.read_bytes().decode(ENCODING)
 
         for intento in range(1, 5):
@@ -207,6 +211,8 @@ def main():
     ap.add_argument("--centro", default="A")
     ap.add_argument("--pausa", type=float, default=2.5, help="segundos entre peticiones (min 1.5)")
     ap.add_argument("--sin-cache", action="store_true", help="no reutilizar respuestas guardadas")
+    ap.add_argument("--sede", default="sede_huentitan.json",
+                    help="JSON con las carreras de la sede a publicar ('' = todo el centro)")
     args = ap.parse_args()
     cli = Cliente(max(args.pausa, 1.5), not args.sin_cache)
     DATA.mkdir(parents=True, exist_ok=True)
@@ -236,7 +242,7 @@ def main():
     secciones = sorted(por_nrc.values(), key=lambda s: (s["materia"], s["seccion"]))
     usadas = sorted({c for s in secciones for c in s["carreras"]})
     salida = {
-        "generado": datetime.now().isoformat(timespec="seconds"),
+        "generado": datetime.fromtimestamp(cli.mas_antigua).isoformat(timespec="seconds"),
         "fuente": "consulta.siiau.udg.mx (consulta publica de oferta academica)",
         "ciclo": args.ciclo,
         "centro": args.centro,
@@ -244,11 +250,53 @@ def main():
         "secciones": secciones,
     }
     (DATA / f"oferta_cuaad_{args.ciclo}.json").write_text(json.dumps(salida, ensure_ascii=False, indent=1), encoding="utf-8")
-    (DATA / "oferta.js").write_text("window.OFERTA = " + json.dumps(salida, ensure_ascii=False) + ";\n", encoding="utf-8")
 
     print("[3/3] Reporte de carreras y edificios...")
     escribir_reporte(salida)
-    print(f"Listo. {cli.peticiones} peticiones nuevas al SIIAU. Archivos en {DATA}")
+
+    sede = cargar_sede(args.sede)
+    publicada = filtrar_sede(salida, sede) if sede else salida
+    if sede:
+        nombre = f"oferta_{norm_archivo(sede['sede'])}_{args.ciclo}.json"
+        (DATA / nombre).write_text(json.dumps(publicada, ensure_ascii=False, indent=1), encoding="utf-8")
+        print(f"Sede {sede['sede']}: {len(publicada['secciones'])} de {len(secciones)} NRC -> {nombre}")
+    (DATA / "oferta.js").write_text("window.OFERTA = " + json.dumps(publicada, ensure_ascii=False) + ";\n", encoding="utf-8")
+    print(f"Listo. {cli.peticiones} peticiones nuevas al SIIAU. La pagina carga data/oferta.js")
+
+
+def norm_archivo(s):
+    s = s.lower().translate(str.maketrans("áéíóúñ", "aeioun"))
+    return re.sub(r"[^a-z0-9]+", "_", s).strip("_")
+
+
+def cargar_sede(ruta):
+    if not ruta:
+        return None
+    p = Path(ruta)
+    if not p.is_absolute():
+        p = Path(__file__).resolve().parent / p
+    if not p.exists():
+        print(f"   (sin archivo de sede {p.name}; se publica todo el centro)")
+        return None
+    return json.loads(p.read_text(encoding="utf-8"))
+
+
+def filtrar_sede(d, sede):
+    """Deja solo los NRC de las carreras de la sede; cada NRC conserva solo esas carreras."""
+    nombres = sede["carreras"]
+    secs = []
+    for s in d["secciones"]:
+        propias = [c for c in s["carreras"] if c in nombres]
+        if propias:
+            secs.append({**s, "carreras": propias})
+    usadas = sorted({c for s in secs for c in s["carreras"]})
+    return {
+        **d,
+        "sede": sede["sede"],
+        "edificios_sede": sede.get("edificios", []),
+        "carreras": {c: f"{nombres[c]}" for c in usadas},
+        "secciones": secs,
+    }
 
 
 def escribir_reporte(d):
