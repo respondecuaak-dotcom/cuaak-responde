@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CUAAK RESPONDE</title>
+<meta name="description" content="Planificador de horarios hecho por y para la comunidad del CUAAD Huentitán. Proyecto estudiantil no oficial.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23141414'/%3E%3Cpath d='M12 50a20 20 0 0 1 20-20h4v20z' fill='%23FF5A1F'/%3E%3Ccircle cx='40' cy='22' r='10' fill='%23FF5A1F'/%3E%3Cpath d='M50 20l9 4-9 4z' fill='%23F4F1EA'/%3E%3C/svg%3E">
+</head>
+<body>
+
+<header class="top">
+  <a class="brand" href="#" aria-label="CUAAK RESPONDE, inicio">
+    <svg class="duck" viewBox="0 0 64 64" aria-hidden="true">
+      <path d="M6 54a24 24 0 0 1 24-24h8v24z" class="duck-body"/>
+      <circle cx="40" cy="22" r="11" class="duck-head"/>
+      <circle cx="43" cy="19" r="2.2" class="duck-eye"/>
+      <path d="M51 19l11 5-11 5z" class="duck-beak"/>
+    </svg>
+    <span class="wordmark"><b>CUAAK</b><i>RESPONDE</i></span>
+  </a>
+  <p class="tag">Arma tu horario sin empalmes. Hecho por y para la comunidad de Huentitán.</p>
+  <div class="top-meta" id="meta">Cargando oferta…</div>
+</header>
+
+<main class="layout">
+  <!-- ============ BUSCADOR ============ -->
+  <section class="panel buscar" aria-label="Buscar materias">
+    <div class="panel-head">
+      <h2><span class="num">01</span> Busca materias</h2>
+    </div>
+
+    <div class="filtros">
+      <label class="campo ancho">
+        <span>Carrera</span>
+        <select id="f-carrera"><option value="">Todas las carreras</option></select>
+      </label>
+      <label class="campo ancho">
+        <span>Materia, clave, NRC o profe</span>
+        <input id="f-q" type="search" placeholder="Ej. taller de diseño, IB532, 66580…" autocomplete="off">
+      </label>
+      <label class="campo">
+        <span>Edificio</span>
+        <select id="f-edificio"><option value="">Todos</option></select>
+      </label>
+      <label class="campo">
+        <span>Aula</span>
+        <select id="f-aula"><option value="">Todas</option></select>
+      </label>
+      <fieldset class="campo ancho dias-filtro">
+        <legend>Solo clases en estos días</legend>
+        <div class="chips" id="f-dias"></div>
+      </fieldset>
+      <div class="toggles ancho">
+        <label class="check"><input type="checkbox" id="f-cupo"> Solo con lugares</label>
+        <label class="check"><input type="checkbox" id="f-horario" checked> Ocultar sin horario</label>
+        <label class="check"><input type="checkbox" id="f-libres"> Ocultar las que se empalman</label>
+      </div>
+    </div>
+
+    <div class="resultados-head">
+      <span id="conteo">—</span>
+      <button class="link" id="limpiar" type="button">Limpiar filtros</button>
+    </div>
+    <div id="resultados" class="resultados" aria-live="polite"></div>
+    <button id="mas" class="btn ghost full" type="button" hidden>Ver más materias</button>
+  </section>
+
+  <!-- ============ HORARIO ============ -->
+  <section class="panel horario" aria-label="Mi horario">
+    <div class="panel-head">
+      <h2><span class="num">02</span> Mi horario</h2>
+      <div class="planes" id="planes" role="tablist"></div>
+    </div>
+
+    <div class="plan-acciones">
+      <button class="btn sm" id="p-nuevo" type="button">+ Nuevo plan</button>
+      <button class="btn sm ghost" id="p-dup" type="button">Duplicar</button>
+      <button class="btn sm ghost" id="p-ren" type="button">Renombrar</button>
+      <button class="btn sm ghost danger" id="p-del" type="button">Borrar plan</button>
+    </div>
+
+    <div id="alertas" class="alertas" aria-live="assertive"></div>
+
+    <div class="grid-wrap">
+      <div id="grid" class="grid"></div>
+    </div>
+
+    <div class="resumen">
+      <div class="stats">
+        <div><b id="s-materias">0</b><span>materias</span></div>
+        <div><b id="s-creditos">0</b><span>créditos</span></div>
+        <div><b id="s-horas">0</b><span>hrs / semana</span></div>
+      </div>
+      <div class="resumen-acciones">
+        <button class="btn sm" id="copiar" type="button">Copiar NRCs</button>
+        <button class="btn sm ghost" id="imprimir" type="button">Imprimir</button>
+        <button class="btn sm ghost danger" id="vaciar" type="button">Vaciar</button>
+      </div>
+    </div>
+    <ul id="lista" class="lista"></ul>
+  </section>
+</main>
+
+<footer class="pie">
+  <p><b>Proyecto estudiantil no oficial.</b> Los datos vienen de la consulta pública de oferta del SIIAU y pueden cambiar: confirma siempre en SIIAU antes de registrar.</p>
+  <label class="btn sm ghost cargar">Cargar otro JSON<input type="file" id="archivo" accept=".json,application/json" hidden></label>
+</footer>
+
+<div id="toast" class="toast" role="status" hidden></div>
+
+<script src="data/oferta.js" onerror="window.OFERTA_ERROR=true"></script>
+<script src="app.js"></script>
+</body>
+</html>

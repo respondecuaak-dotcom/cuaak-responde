@@ -1,0 +1,108 @@
+CUAAK RESPONDE - reporte de sedes  (ciclo 202710, 3064 NRC, generado 2026-11-14T18:26:16)
+
+EDIFICIOS (NRC que usan ese edificio · nº de aulas distintas)
+  (sin edificio)    2262 NRC     0 aulas
+  AARTE              376 NRC    48 aulas
+  AHUEN              299 NRC    74 aulas
+  APOSGR              67 NRC    20 aulas
+  ATALLE              34 NRC    12 aulas
+  ATECNO              15 NRC     9 aulas
+  AMUSI               11 NRC     1 aulas
+
+CARRERAS (NRC · edificios donde tienen clase)
+  LIAR   LIC. EN ARQUITECTURA                 756 NRC   (sin edificio):599, AHUEN:136, APOSGR:21
+  LARQ   LIC.EN ARQUITECTURA                  495 NRC   (sin edificio):391, AHUEN:92, APOSGR:12
+  LDCG   LIC.ENDISEÑOPARALACOMU.GRAFICA       494 NRC   (sin edificio):332, AHUEN:110, APOSGR:32, ATECNO:15, ATALLE:5
+  AVP    LIC EN ARTES VISUALES                359 NRC   AARTE:258, (sin edificio):100, AHUEN:1
+  AVF    LIC EN ARTES VISUALES                346 NRC   AARTE:255, (sin edificio):90, AHUEN:1
+  AET    LIC ARTES ESCENICAS EXP.TEAT         324 NRC   AARTE:235, (sin edificio):88, AHUEN:1
+  MUIA   LIC EN MUSICA O. EJ, CA, DC,         288 NRC   (sin edificio):277, AMUSI:11
+  AED    LIC EN ARTES ESCENICAS DANCIST       285 NRC   AARTE:213, (sin edificio):71, AHUEN:1
+  PTM    TECNICO EN MUSICA                    269 NRC   (sin edificio):258, AMUSI:11
+  LDII   LIC. EN DISEÑO INDUSTRIAL            248 NRC   (sin edificio):178, ATALLE:27, AHUEN:27, APOSGR:16
+  MUSE   LIC EN MUSICA O. EJECUTANTE          237 NRC   (sin edificio):226, AMUSI:11
+  NAVF   LIC EN ARTES VISUALES FOT(NIV)       204 NRC   AARTE:160, (sin edificio):44
+  NAVP   LIC EN ARTES VISUALES PLA(NIV)       195 NRC   AARTE:156, (sin edificio):39
+  LDIA   LIC.EN DISEÑO DE INTERIORES Y        187 NRC   (sin edificio):117, AHUEN:60, APOSGR:10
+  NAET   LIC ARTES ESCENICAS TEAT(NIV)        181 NRC   AARTE:140, (sin edificio):41
+  NAED   LIC ARTES ESCENICA DANCIS(NIV)       177 NRC   AARTE:140, (sin edificio):37
+  LDAT   LIC.ENDISEÑO,ARTEY TECNOLOGIAS       174 NRC   (sin edificio):139, AHUEN:27, APOSGR:8
+  LAMU   LIC.EN URBANISTICA Y MEDIO AMB       142 NRC   (sin edificio):118, AHUEN:19, APOSGR:5
+  MUSC   LIC EN MUSICA O. EN CANTO            142 NRC   (sin edificio):131, AMUSI:11
+  PMM    PROFESIONAL MEDIO EN MUSICA          137 NRC   (sin edificio):137
+  PMMI   PROF. MEDIO MUSICA ORIEN INSTR       137 NRC   (sin edificio):137
+  DMOD   LIC.EN DISEÑO DE MODAS               136 NRC   (sin edificio):84, AHUEN:27, APOSGR:17, AARTE:8
+  MUSD   LIC EN MUSICA O. DIRECC CORAL        135 NRC   (sin edificio):124, AMUSI:11
+  ARA    LIC EN ARTES AUDIOVISUALES           112 NRC   (sin edificio):112
+  MUSP   LIC EN MUSICA O. PEDAGOGIA M         111 NRC   (sin edificio):100, AMUSI:11
+  PMU    PROF.MEDIO EN MUSICA                 110 NRC   (sin edificio):110
+  MUSO   LIC EN MUSICA O. COMPOSICION         109 NRC   (sin edificio):98, AMUSI:11
+  LAID   LIC.EN DISEÑO DE INT.Y AMBIENT        73 NRC   AHUEN:36, (sin edificio):35, APOSGR:2
+  DIMO   LIC EN DISEÑO DE MODAS                71 NRC   (sin edificio):51, AARTE:14, AHUEN:4, ATALLE:2
+  MUI    LIC EN MUSICA                         63 NRC   (sin edificio):52, AMUSI:11
+  MPMU   LIC.MUS.ORIENTACION CONCERT-SO        54 NRC   (sin edificio):43, AMUSI:11
+  MUSA   LIC EN MUSICA O. PEDAGOGIA M          54 NRC   (sin edificio):43, AMUSI:11
+  MUSS   LIC EN MUSICA O. CONCERTISTA          50 NRC   (sin edificio):39, AMUSI:11
+  MUS    LIC EN MUSICA                         49 NRC   (sin edificio):38, AMUSI:11
+  MUSI   LIC EN MUSICA O. COMPOSICION          49 NRC   (sin edificio):38, AMUSI:11
+  LMPM   LIC.EN MUSICA ORIENTACIONENPED        48 NRC   (sin edificio):37, AMUSI:11
+  MUSU   LIC EN MUSICA O. DIRECC CORAL         46 NRC   (sin edificio):35, AMUSI:11
+  MCOM   LIC. EN MUS ORIEN. COMPOSICION        44 NRC   (sin edificio):33, AMUSI:11
+  MDIC   LIC EN MUSICA ORIEN. DIR CORAL        44 NRC   (sin edificio):33, AMUSI:11
+  MUCA   LIC. EN MUSICA ORIEN. CANTO           44 NRC   (sin edificio):33, AMUSI:11
+  MUST   LIC EN MUSICA O. EN CANTO             44 NRC   (sin edificio):33, AMUSI:11
+  DCG    LIC EN DISEÑO PARA LA COMUNI.         43 NRC   (sin edificio):43
+  LMCS   LIC.EN MUSICA ORIENTACION EN C        43 NRC   (sin edificio):32, AMUSI:11
+  DIAM   LIC EN DISEÑO DE INTE Y AMB           39 NRC   (sin edificio):39
+  LMCA   LIC. EN MUSICA ORIENTACIONENCA        38 NRC   (sin edificio):27, AMUSI:11
+  LMCO   LIC.EN MUSICA ORIENTACION EN C        38 NRC   (sin edificio):27, AMUSI:11
+  LMDC   LIC.EN MUSICA ORIENTACION EN D        38 NRC   (sin edificio):27, AMUSI:11
+  DIA    LIC EN DISEÑO DE INTERIORES Y         37 NRC   (sin edificio):37
+  ARQ    LIC EN ARQUITECTURA                   34 NRC   (sin edificio):34
+  LAET   LIC.ART ESC CON ORIE TEATRO           33 NRC   (sin edificio):33
+  PAE    PROF. MEDIO EN ARTES ESCEN ORI        32 NRC   (sin edificio):32
+  PAV    PROF. MEDIO EN ARTES VISUALES         32 NRC   (sin edificio):32
+  ARE    LIC EN ARTES ESCENICAS                31 NRC   (sin edificio):31
+  PAEC   LIC EN ARTES ESCENICAS DANZA          31 NRC   (sin edificio):31
+  ARV    LIC EN ARTES VISUALES                 30 NRC   (sin edificio):30
+  DIN    LIC EN DISEÑO INDUSTRIAL              30 NRC   (sin edificio):30
+  PAVD   LIC ARTES VISUALES (DIB-ESTA)         30 NRC   (sin edificio):30
+  PAVE   LIC EN ARTES VISUALES (ESCULT         30 NRC   (sin edificio):30
+  PAVF   LIC EN ARTES VISUALES (FOTOGR         30 NRC   (sin edificio):30
+  PAVP   LIC EN ARTES VISUALES (PINTUR         30 NRC   (sin edificio):30
+  SPMD   P. MED EN DISEÑO PUBLICITARIO         24 NRC   (sin edificio):24
+  SPME   PROFESIONAL MEDIO EN ESCULTURA        24 NRC   (sin edificio):24
+  SPMF   PROFESIONAL MEDIO EN FOTOGRAFI        24 NRC   (sin edificio):24
+  SPMP   PROFESIONAL MEDIO EN PINTURA          24 NRC   (sin edificio):24
+  SPAT   PROFESIONAL MEDIO EN ARTES ECE        16 NRC   (sin edificio):16
+  MALI   MAESTRIA EN LITERACIDAD               15 NRC   (sin edificio):15
+  MAUT   MAE.EN URBANISMO Y TERRITORIO         12 NRC   (sin edificio):12
+  MCIA   MAE.EN CIENCIAS DE LA ARQUITEC        11 NRC   (sin edificio):11
+  RNMP   LIC EN MUSICA PED.MUSICAL (NIV        11 NRC   (sin edificio):11
+  MDCI   MAE,ENDUSEÑODEINFORMACIONYCOMU        10 NRC   (sin edificio):10
+  MIAQ   MAE EN CS DE LA ARQ HIST              10 NRC   (sin edificio):10
+  MELI   MAE.EN ESTUDIOS EN LITERACIDAD        10 NRC   (sin edificio):10
+  MDCD   MAE.ENDISEÑODEINFOR.YCOMUN.DIG         9 NRC   (sin edificio):9
+  MAPA   MAE.PROC.EXPRE.GRAF.RPOYEC             9 NRC   (sin edificio):9
+  BMUA   PROGRAMA BASICO MUSICAL                9 NRC   (sin edificio):9
+  MECM   MAE.EM EST.CINEMATOGRAFICOS            8 NRC   (sin edificio):8
+  MGDE   MAE.EN GESTION Y DESARROLLO CU         8 NRC   (sin edificio):8
+  MIAT   MAE CS DE LA ARQUITECTURA EDIF         8 NRC   (sin edificio):8
+  DHAS   DOCT.ENINNOVACONPARAEL HABITAT         8 NRC   (sin edificio):8
+  DTSC   DOCT.EN CIUDAD TERRITORIO Y SU         8 NRC   (sin edificio):8
+  MEEA   MAE.EDU.Y EXPRE.PARA LAS ARTES         7 NRC   AARTE:4, (sin edificio):3
+  MIUR   MAE EN URBANISMO Y DESARR              6 NRC   (sin edificio):6
+  DCTS   DOC.EN CD,TERRITORIO Y SUSTENT         5 NRC   (sin edificio):5
+  DUCU   DOC EN CIUDAD, TERRITORIO              5 NRC   (sin edificio):5
+  MLEX   MAE. EN LEIXICOGRAFIA Y PRODUC         4 NRC   (sin edificio):4
+  MLPE   MAE.EN LEXICOLOGRAFIA Y PRODUC         4 NRC   (sin edificio):4
+  MEER   MAESTRIA EN ERGONOMIA                  4 NRC   (sin edificio):4
+  MTME   MAE.EN MUSICA TRADICIONAL EN P         4 NRC   (sin edificio):4
+  MINN   MAE.EN DISEÑO E INNOVACION IND         3 NRC   (sin edificio):3
+  MERG   MAESTRIA EN ERGONOMIA                  3 NRC   (sin edificio):3
+  MAPE   MAE EN PROC Y EXP GRAF EN LA P         3 NRC   (sin edificio):3
+  DOAC   DOCTORADO EN ARTE Y CULTURA            3 NRC   (sin edificio):3
+  BMU    CARR.EN PROG. BASICO MUSICAL           2 NRC   (sin edificio):2
+  MAEA   MAES. EN EDU. Y EXPRE. PARA LA         1 NRC   (sin edificio):1
+  MAEE   MAE EN EDU Y EXPR. DE LAS ART          1 NRC   (sin edificio):1
+  MDIN   MAE.EN DISEÑO E INNOVACION IND         1 NRC   (sin edificio):1
